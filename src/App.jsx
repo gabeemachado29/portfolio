@@ -17,11 +17,11 @@ export default function App() {
       : "min-h-screen bg-gradient-to-br from-gray-100 to-gray-300 text-gray-900"
     }>
 
-      {/* TOGGLE THEME */}
+      {/* TOGGLE */}
       <div className="absolute top-6 right-6">
         <button
           onClick={() => setDark(!dark)}
-          className="px-4 py-2 rounded-xl bg-cyan-500 text-white shadow hover:scale-105 transition"
+          className="px-4 py-2 rounded-xl bg-cyan-500 text-white shadow"
         >
           {dark ? "☀️ Light" : "🌙 Dark"}
         </button>
@@ -32,15 +32,19 @@ export default function App() {
 
         <img
           src="https://avatars.githubusercontent.com/gabeemachado29"
-          className="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-cyan-400 shadow-lg"
+          className="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-cyan-400"
         />
 
-        <h1 className="text-5xl font-bold mb-4">
+        <h1 className="text-5xl font-bold mb-2">
           Gabriel Machado França
         </h1>
 
-        <p className="text-xl opacity-80">
+        <p className="opacity-80">
           Técnico de Informática • Analista de Sistemas • Desenvolvedor Full Stack
+        </p>
+
+        <p className="opacity-70 text-sm mt-2">
+          📅 29/01/2004 • 📞 (41) 99101-1256
         </p>
 
         <a
@@ -52,39 +56,57 @@ export default function App() {
 
       </section>
 
+      {/* SOBRE */}
+      <section className="max-w-5xl mx-auto px-6 mb-20">
+
+        <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700">
+
+          <h2 className="text-2xl font-semibold mb-4">
+            👨‍💻 Sobre mim
+          </h2>
+
+          <p className="opacity-80 mb-3">
+            Profissional de Tecnologia da Informação com experiência em suporte
+            técnico, infraestrutura e desenvolvimento de sistemas.
+          </p>
+
+          <p className="opacity-80">
+            Atuo também com projetos próprios, com foco em soluções reais,
+            integração de sistemas e aplicações mobile.
+          </p>
+
+        </div>
+
+      </section>
+
       {/* TIMELINE */}
       <section className="max-w-4xl mx-auto px-6 mb-20">
 
         <h2 className="text-2xl font-semibold mb-8">
-          🧭 Trajetória
+          🧭 Experiência Profissional
         </h2>
 
         <div className="space-y-6 border-l-2 border-cyan-400 pl-6">
 
           <div>
             <h3 className="font-bold text-cyan-400">
-              Auxiliar de Informática
-            </h3>
-            <p className="opacity-80">
               Colégio Adventista de Paranaguá
+            </h3>
+            <p className="opacity-80 text-sm">
+              Auxiliar de TI • 2022 — 2024
+            </p>
+            <p className="opacity-70 text-sm">
+              Manutenção de computadores, suporte a usuários,
+              edição de vídeos e gestão de mídias sociais.
             </p>
           </div>
 
           <div>
             <h3 className="font-bold text-cyan-400">
-              Técnico de Informática
+              Faiston / Klabin
             </h3>
-            <p className="opacity-80">
-              Faiston • Prestação para Klabin
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-bold text-cyan-400">
-              Desenvolvedor Full Stack
-            </h3>
-            <p className="opacity-80">
-              Projetos próprios e App Med
+            <p className="opacity-80 text-sm">
+              Técnico de Informática • Atual
             </p>
           </div>
 
@@ -92,26 +114,49 @@ export default function App() {
 
       </section>
 
-      {/* STATS GITHUB */}
-      <section className="text-center mb-20">
+      {/* PROJETO */}
+      <section className="max-w-5xl mx-auto px-6 mb-20">
 
-        <h2 className="text-2xl font-semibold mb-6">
-          📊 GitHub Stats
-        </h2>
+        <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700">
 
-        <img
-          src="https://github-readme-stats.vercel.app/api?username=gabeemachado29&show_icons=true&theme=tokyonight"
-          className="mx-auto mb-6"
-        />
+          <h2 className="text-2xl font-semibold mb-4">
+            🚀 Projeto em Destaque
+          </h2>
 
-        <img
-          src="https://github-readme-stats.vercel.app/api/top-langs/?username=gabeemachado29&layout=compact&theme=tokyonight"
-          className="mx-auto"
-        />
+          <h3 className="text-cyan-400 font-bold">
+            App Med
+          </h3>
+
+          <p className="opacity-80 text-sm">
+            Plataforma de prontuário digital pessoal com histórico de consultas,
+            armazenamento de exames e comunicação direta entre paciente e médico.
+          </p>
+
+        </div>
 
       </section>
 
-      {/* PROJETOS */}
+      {/* SKILLS */}
+      <section className="max-w-5xl mx-auto px-6 mb-20">
+
+        <h2 className="text-2xl font-semibold mb-6">
+          🧠 Competências
+        </h2>
+
+        <div className="grid md:grid-cols-3 gap-4 opacity-80">
+
+          <span>Microsoft Office</span>
+          <span>C / Java / PHP</span>
+          <span>Flutter / Dart</span>
+          <span>HTML / CSS</span>
+          <span>Firebase</span>
+          <span>JavaScript / Python</span>
+
+        </div>
+
+      </section>
+
+      {/* GITHUB */}
       <section className="max-w-5xl mx-auto px-6 mb-20">
 
         <h2 className="text-2xl font-semibold mb-6">
@@ -124,22 +169,18 @@ export default function App() {
 
             <div
               key={repo.id}
-              className="p-5 rounded-xl backdrop-blur bg-white/5 border border-white/10 hover:scale-105 transition"
+              className="p-5 rounded-xl bg-white/5 border border-white/10"
             >
               <h3 className="text-cyan-400 font-bold">
                 {repo.name}
               </h3>
 
-              <p className="text-sm opacity-80 mb-3">
-                {repo.description || "Sem descrição"}
-              </p>
-
               <a
                 href={repo.html_url}
                 target="_blank"
-                className="text-cyan-400 text-sm hover:underline"
+                className="text-sm hover:underline"
               >
-                Ver →
+                Ver repositório →
               </a>
 
             </div>
@@ -157,27 +198,11 @@ export default function App() {
           📫 Contato
         </h2>
 
-        <div className="flex flex-col gap-3">
+        <p>📧 gamafran@outlook.com</p>
 
-          <a href="mailto:gamafran@outlook.com">
-            📧 gamafran@outlook.com
-          </a>
-
-          <a
-            href="https://www.linkedin.com/in/gabriel-machadof29"
-            target="_blank"
-          >
-            💼 LinkedIn
-          </a>
-
-          <a
-            href="https://github.com/gabeemachado29"
-            target="_blank"
-          >
-            🐙 GitHub
-          </a>
-
-        </div>
+        <p>
+          💼 LinkedIn • 🐙 GitHub
+        </p>
 
       </section>
 
