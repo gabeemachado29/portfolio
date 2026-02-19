@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 export default function App() {
 
   const [repos, setRepos] = useState([]);
-  const [dark, setDark] = useState(true);
+  const [filter, setFilter] = useState("all");
   const [selectedRepo, setSelectedRepo] = useState(null);
 
   useEffect(() => {
@@ -12,28 +12,24 @@ export default function App() {
       .then(data => setRepos(data));
   }, []);
 
-  return (
-    <div className={dark
-      ? "min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white"
-      : "min-h-screen bg-gradient-to-br from-gray-100 to-gray-300 text-gray-900"
-    }>
+  const techs = ["all","flutter","php","javascript","python"];
 
-      {/* TOGGLE THEME */}
-      <div className="absolute top-6 right-6">
-        <button
-          onClick={() => setDark(!dark)}
-          className="px-4 py-2 rounded-xl bg-cyan-500 text-white shadow"
-        >
-          {dark ? "☀️ Light" : "🌙 Dark"}
-        </button>
-      </div>
+  const filteredRepos =
+    filter === "all"
+      ? repos
+      : repos.filter(r =>
+          (r.language || "").toLowerCase().includes(filter)
+        );
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
 
       {/* HERO */}
       <section className="text-center py-20 px-6">
 
         <img
           src="https://avatars.githubusercontent.com/gabeemachado29"
-          className="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-cyan-400 shadow-lg"
+          className="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-cyan-400"
         />
 
         <h1 className="text-5xl font-bold mb-2">
@@ -41,50 +37,15 @@ export default function App() {
         </h1>
 
         <p className="opacity-80">
-          Técnico de Informática • Analista de Sistemas • Desenvolvedor Full Stack
-        </p>
-
-        <p className="opacity-70 text-sm mt-2">
-          Especialista em suporte corporativo, infraestrutura e desenvolvimento de
-          aplicações web e mobile.
+          Full Stack Developer • Analista de Sistemas • Técnico de TI
         </p>
 
         <a
           href="/cv.pdf"
-          className="inline-block mt-6 px-6 py-3 bg-cyan-500 rounded-xl shadow hover:scale-105 transition"
+          className="inline-block mt-6 px-6 py-3 bg-cyan-500 rounded-xl"
         >
           📄 Baixar Currículo
         </a>
-
-      </section>
-
-      {/* SOBRE EXPANDIDO */}
-      <section className="max-w-5xl mx-auto px-6 mb-20">
-
-        <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700">
-
-          <h2 className="text-2xl font-semibold mb-4">
-            👨‍💻 Sobre mim
-          </h2>
-
-          <p className="opacity-80 mb-3">
-            Atuo na área de Tecnologia da Informação desde cedo, iniciando minha
-            carreira como Auxiliar de Informática no Colégio Adventista de
-            Paranaguá, onde adquiri experiência em manutenção, suporte e mídia.
-          </p>
-
-          <p className="opacity-80 mb-3">
-            Atualmente trabalho como Técnico de Informática pela Faiston,
-            prestando serviços para a Klabin em suas duas unidades, atuando com
-            suporte corporativo, redes e infraestrutura.
-          </p>
-
-          <p className="opacity-80">
-            Também desenvolvo projetos próprios, com foco em sistemas reais,
-            integração de APIs, cloud e aplicativos mobile.
-          </p>
-
-        </div>
 
       </section>
 
@@ -98,7 +59,7 @@ export default function App() {
         <div className="grid md:grid-cols-4 gap-4">
 
           {[
-            ["💙","Flutter"],
+            ["🐦","Flutter"],
             ["🎯","Dart"],
             ["🐘","PHP"],
             ["⚡","JavaScript"],
@@ -110,10 +71,10 @@ export default function App() {
 
             <div
               key={skill[1]}
-              className="bg-slate-800 p-4 rounded-xl border border-slate-700 text-center hover:scale-105 transition"
+              className="bg-slate-800 p-4 rounded-xl text-center border border-slate-700"
             >
               <div className="text-2xl">{skill[0]}</div>
-              <div className="opacity-80">{skill[1]}</div>
+              <div>{skill[1]}</div>
             </div>
 
           ))}
@@ -122,22 +83,26 @@ export default function App() {
 
       </section>
 
-      {/* CERTIFICADOS */}
-      <section className="max-w-5xl mx-auto px-6 mb-20">
+      {/* FILTRO */}
+      <section className="max-w-5xl mx-auto px-6 mb-10">
 
-        <h2 className="text-2xl font-semibold mb-6">
-          🏆 Certificados
+        <h2 className="text-2xl font-semibold mb-4">
+          🔎 Filtrar Projetos
         </h2>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="flex gap-3 flex-wrap">
 
-          <div className="bg-slate-800 p-5 rounded-xl border border-slate-700">
-            📜 Análise e Desenvolvimento de Sistemas — IFPR
-          </div>
+          {techs.map(t => (
 
-          <div className="bg-slate-800 p-5 rounded-xl border border-slate-700">
-            📜 Cursos complementares em Desenvolvimento e TI
-          </div>
+            <button
+              key={t}
+              onClick={() => setFilter(t)}
+              className="px-4 py-2 bg-cyan-500 rounded-xl text-sm"
+            >
+              {t.toUpperCase()}
+            </button>
+
+          ))}
 
         </div>
 
@@ -146,25 +111,28 @@ export default function App() {
       {/* PROJETOS */}
       <section className="max-w-5xl mx-auto px-6 mb-20">
 
-        <h2 className="text-2xl font-semibold mb-6">
-          🚀 Projetos
-        </h2>
-
         <div className="grid md:grid-cols-2 gap-6">
 
-          {repos.slice(0,6).map(repo => (
+          {filteredRepos.slice(0,8).map(repo => (
 
             <div
               key={repo.id}
               onClick={() => setSelectedRepo(repo)}
-              className="p-5 rounded-xl bg-white/5 border border-white/10 cursor-pointer hover:scale-105 transition"
+              className="bg-slate-800 p-5 rounded-xl cursor-pointer hover:scale-105 transition"
             >
+
+              {/* SCREENSHOT AUTOMÁTICO */}
+              <img
+                src={`https://opengraph.githubassets.com/1/${repo.full_name}`}
+                className="rounded mb-3"
+              />
+
               <h3 className="text-cyan-400 font-bold">
                 {repo.name}
               </h3>
 
-              <p className="text-sm opacity-80">
-                Clique para detalhes
+              <p className="text-sm opacity-70">
+                {repo.language}
               </p>
 
             </div>
@@ -175,7 +143,7 @@ export default function App() {
 
       </section>
 
-      {/* MODAL PROJETO */}
+      {/* MODAL */}
       {selectedRepo && (
 
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center p-6">
@@ -187,25 +155,32 @@ export default function App() {
             </h3>
 
             <p className="opacity-80 mb-4">
-              {selectedRepo.description || "Sem descrição adicionada."}
+              {selectedRepo.description || "Sem descrição"}
             </p>
+
+            {/* PREVIEW DEPLOY */}
+            <a
+              href={`https://${selectedRepo.name}.vercel.app`}
+              target="_blank"
+              className="text-green-400 block mb-2"
+            >
+              🌐 Preview Deploy
+            </a>
 
             <a
               href={selectedRepo.html_url}
               target="_blank"
-              className="text-cyan-400 hover:underline"
+              className="text-cyan-400"
             >
-              Abrir repositório →
+              GitHub →
             </a>
 
-            <div className="mt-6">
-              <button
-                onClick={() => setSelectedRepo(null)}
-                className="px-4 py-2 bg-red-500 rounded"
-              >
-                Fechar
-              </button>
-            </div>
+            <button
+              onClick={() => setSelectedRepo(null)}
+              className="mt-6 px-4 py-2 bg-red-500 rounded"
+            >
+              Fechar
+            </button>
 
           </div>
 
@@ -213,29 +188,70 @@ export default function App() {
 
       )}
 
-      {/* WHATSAPP FIXO */}
+      {/* BLOG */}
+      <section className="max-w-5xl mx-auto px-6 mb-20">
+
+        <h2 className="text-2xl font-semibold mb-6">
+          📝 Blog Técnico
+        </h2>
+
+        <div className="grid md:grid-cols-2 gap-6">
+
+          {[
+            {
+              title:"Como publiquei meu App Flutter",
+              date:"2025",
+            },
+            {
+              title:"Integração Firebase + PHP",
+              date:"2025",
+            }
+          ].map(post => (
+
+            <div className="bg-slate-800 p-5 rounded-xl">
+              <h3 className="text-cyan-400 font-bold">
+                {post.title}
+              </h3>
+              <p className="text-sm opacity-70">
+                {post.date}
+              </p>
+            </div>
+
+          ))}
+
+        </div>
+
+      </section>
+
+      {/* DASHBOARD ADMIN SIMPLES */}
+      <section className="max-w-5xl mx-auto px-6 mb-20">
+
+        <h2 className="text-2xl font-semibold mb-6">
+          ⚙️ Admin Portfolio
+        </h2>
+
+        <div className="bg-slate-800 p-6 rounded-xl text-sm opacity-80">
+
+          Edite conteúdos pelo arquivo:
+
+          <div className="mt-3 bg-black p-3 rounded">
+            /src/data/portfolio.json
+          </div>
+
+          Você pode alterar textos, projetos e blog sem mexer no código.
+
+        </div>
+
+      </section>
+
+      {/* WHATSAPP */}
       <a
         href="https://wa.me/5541991011256"
         target="_blank"
-        className="fixed bottom-6 right-6 bg-green-500 w-14 h-14 flex items-center justify-center rounded-full text-2xl shadow-lg hover:scale-110 transition"
+        className="fixed bottom-6 right-6 bg-green-500 w-14 h-14 flex items-center justify-center rounded-full text-2xl shadow-lg"
       >
         💬
       </a>
-
-      {/* CONTATO */}
-      <section className="text-center pb-20">
-
-        <h2 className="text-2xl font-semibold mb-6">
-          📫 Contato
-        </h2>
-
-        <p>📧 gamafran@outlook.com</p>
-
-        <p className="opacity-80">
-          LinkedIn • GitHub • WhatsApp
-        </p>
-
-      </section>
 
     </div>
   );
